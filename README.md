@@ -22,3 +22,4 @@ It can indirectly generate a soldat map using a mathematical function.
     
     
  In order to use it,run npm install canvas(or comment all the lines i use canvas), edit the hardcoded variables, and on the function fmain, replace it with another function. A file named output.txt will be generated, copy and paste it into a new .polywonks map, open the polywonks file with a text editor and paste the xml code into the front-polygons layer. A good tip is to create a polywonks file with a single polygon, then replace this polygon on the text editor.
+ Before it generates the output.txt file, 2 png files will be generated, out.png will plot the curves of the main function, the derivative, and the derivative of the derivative, and also the modulus. To the left, in the main function, the extra vertices are marked using little squares, on the right side, the main function is plotted again, this time using the limited ammount of points.
