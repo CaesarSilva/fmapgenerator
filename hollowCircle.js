@@ -143,6 +143,28 @@ console.log("blue"+blue);
 
 return (new colorF(red,green,blue));
 }
+function gradient2(color1,color2,step,divisions){
+let middlestep = Math.round(divisions/2);
+if(step<middlestep){
+return gradient(color1,color2,step,middlestep);
+}else{
+return gradient(color2,color1,step-middlestep,divisions-middlestep);
+}
+}
+function gradient3(color1,color2,color3,step,divisions){
+let step1third = Math.round(divisions/3);
+let step2thirds = Math.round(2*divisions/3);
+if(step < step1third){
+console.log("\n\n\n\n\n\n step one third");
+return gradient(color1,color2,step,step1third);
+}else if(step < step2thirds){
+console.log("\n\n\n\n\n\n step two third");
+return gradient(color2,color3,step-step1third,step2thirds-step1third);
+}else{
+console.log("\n\n\n\n\n\n step last third");
+return gradient(color3,color1,step-step2thirds,divisions-step2thirds);
+}
+}
 //
 let stream = fs.createWriteStream("hollowC.polywonks", {flags: "w"});
 stream.write("<map text=\"Untitled\" description=\"\" color-top=\"#1e1e1e\" color-bottom=\"#1e1e1e\" jet=\"0\" grenades=\"0\" medikits=\"0\" weather=\"none\" steps=\"hard-ground\">"+
@@ -154,11 +176,12 @@ stream.write("<map text=\"Untitled\" description=\"\" color-top=\"#1e1e1e\" colo
 let idcount = 0;
 let c1 = new colorF(255,255,0);
 let c2 = new colorF(0,0,255);
+let c3= new colorF(23,211,111);
 for(let i= 0; i < mTriangles.length;i++){
 //stream.write(tri2xml(mTriangles[i],idcount,"normal",c2s(c1),c2s(c2),c2s(c1) ) );
-stream.write(tri2xml(mTriangles[i],idcount,"normal",c2s(gradient(c1,c2,i+1,vertices)),c2s(gradient(c1,c2,i,vertices)),c2s(gradient(c1,c2,vertices-i,vertices))));
+stream.write(tri2xml(mTriangles[i],idcount,"normal",c2s(gradient3(c1,c2,c3,i+1,vertices)),c2s(gradient3(c1,c2,c3,i,vertices)),c2s(gradient3(c1,c2,c3,vertices-i,vertices))));
 idcount++;
-stream.write(tri2xml(sTriangles[i],idcount,"normal",c2s(gradient(c1,c2,vertices-i,vertices)),c2s(gradient(c1,c2,vertices-i+1,vertices)),c2s(gradient(c1,c2,i,vertices))));
+stream.write(tri2xml(sTriangles[i],idcount,"normal",c2s(gradient3(c1,c2,c3,vertices-i,vertices)),c2s(gradient3(c1,c2,c3,vertices-i+1,vertices)),c2s(gradient3(c1,c2,c3,i,vertices))));
 idcount++;
 }
 stream.write("  <layer id=\"layer#4\" text=\"Front Scenery\" type=\"scenery-front\"/>"+
